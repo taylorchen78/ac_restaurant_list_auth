@@ -3,9 +3,11 @@ const router = express.Router()
 
 const Restaurant = require('../../models/restaurant')
 
-// show whole restaurants
+// query restaurant
 router.get('/', (req, res) => {
-  Restaurant.find()
+  const keyword = req.query.keyword
+
+  Restaurant.find().or([{ name: { $regex: keyword, $options: 'i' } }, { category: { $regex: keyword, $options: 'i' } }])
     .lean()
     .then(restaurants => res.render('index', { restaurants }))
     .catch(error => console.error(error))

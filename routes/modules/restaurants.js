@@ -3,6 +3,24 @@ const router = express.Router()
 
 const Restaurant = require('../../models/restaurant')
 
+// show add restaurant page
+router.get('/create', (req, res) => {
+  return res.render('create')
+})
+
+// create restaurant
+router.post('/', (req, res) => {
+  const { name, image, location, phone } = req.body
+
+  if (!name || !image || !location || !phone) {
+    return res.render('create')
+  } else {
+    return Restaurant.create(req.body)
+      .then(() => res.redirect('/'))
+      .catch(error => console.log(error))
+  }
+})
+
 // show selected restaurant info
 router.get('/:id', (req, res) => {
   const id = req.params.id
@@ -26,15 +44,14 @@ router.get('/:id/edit', (req, res) => {
 // update restaurant info
 router.put('/:id', (req, res) => {
   const id = req.params.id
-  const restaurant_update = req.body
+  const { name, image, location, phone } = req.body
 
-  if ((restaurant_update.name.length === 0) || (restaurant_update.image.length === 0) ||
-    (restaurant_update.location.length === 0) || (restaurant_update.phone.length === 0)) {
-    return res.render('edit', { restaurant: restaurant_update })
+  if (!name || !image || !location || !phone) {
+    return res.render('edit', { restaurant: req.body })
   } else {
     return Restaurant.findById(id)
       .then(restaurant => {
-        restaurant = Object.assign(restaurant, restaurant_update)
+        restaurant = Object.assign(restaurant, req.body)
         return restaurant.save()
       })
       .then(() => res.redirect(`/`))

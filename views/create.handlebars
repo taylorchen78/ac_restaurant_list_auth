@@ -2,13 +2,13 @@
 <div class="container mt-2">
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
-      <form action="/add_restaurant" method="POST">
+      <form action="/restaurants" method="POST">
         {{!-- name --}}
         <div class="form-group row">
           <label for="name" class="col-sm-2 col-form-label text-secondary">餐廳名</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" name="name" id="name" placeholder="(required) Name"
-              value="{{restaurant.name}}">
+              required="required">
           </div>
         </div>
         {{!-- name_en --}}
@@ -37,7 +37,7 @@
           <label for="image" class="col-sm-2 col-form-label text-secondary">圖片</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" name="image" id="image" placeholder="(required) http://"
-              value="{{restaurant.image}}">
+              required="required">
           </div>
         </div>
         {{!-- location --}}
@@ -45,14 +45,14 @@
           <label for="location" class="col-sm-2 col-form-label text-secondary">地址</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" name="location" id="location" placeholder="(required) Location"
-              value="{{restaurant.location}}">
+              required="required">
           </div>
         </div>
         {{!-- phone --}} <div class="form-group row">
           <label for="phone" class="col-sm-2 col-form-label text-secondary">電話</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" name="phone" id="phone" placeholder="(required) Phone"
-              value="{{restaurant.phone}}">
+              required="required">
           </div>
         </div>
         {{!-- google_map --}}
@@ -78,7 +78,7 @@
         </div>
         {{!-- add button --}}
         <div class="form-group row justify-content-end mr-1">
-          <button type="submit" class="btn btn-info">Add</button>
+          <button type="submit" class="btn btn-info">Create</button>
         </div>
       </form>
     </div>
