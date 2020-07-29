@@ -3,6 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const Handlebars = require("handlebars")
+const methodOverride = require('method-override')
 
 const app = express()
 
@@ -32,6 +33,9 @@ app.use(express.static('public'))
 
 // use bodyparser
 app.use(bodyParser.urlencoded({ extended: true }))
+
+// use method override
+app.use(methodOverride('_method'))
 
 // setting mongoose connection
 mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -103,7 +107,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
   const id = req.params.id
   const restaurant_update = req.body
 
@@ -122,7 +126,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
 })
 
 // delete selected restaurant
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id', (req, res) => {
   const id = req.params.id
 
   return Restaurant.findById(id)

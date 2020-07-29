@@ -2,7 +2,7 @@
 <div class="container mt-2">
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
-      <form action="/restaurants/{{ restaurant._id }}/edit" method="POST">
+      <form action="/restaurants/{{ restaurant._id }}?_method=PUT" method="POST">
         {{!-- name --}}
         <div class="form-group row">
           <label for="name" class="col-sm-2 col-form-label text-secondary">餐廳名</label>
