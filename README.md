@@ -2,7 +2,7 @@
 
 A simple website using Node.js and Express.
 
-The website shows restaurant list and provides query/add/delete/edit function.
+The website shows restaurant list and provides query/add/delete/edit/sort function.
 
 ## Feature
 
@@ -18,15 +18,17 @@ User can edit restaurant info.
 
 User can add new restaurant.
 
+User can sort restaurant.
+
 ## Installation
 1. Open terminal and download project
 ```
-git clone https://github.com/taylorchen78/ac_exercise_restaurant_list_CRUD.git
+git clone https://github.com/taylorchen78/ac_exercise_restaurant_list_CRUD_v2.git
 ```
 
 2. Enter project folder
 ```
-cd ac_exercise_restaurant_list_CRUD
+cd ac_exercise_restaurant_list_CRUD_v2
 ```
 
 3. Install npm
