@@ -10,22 +10,20 @@ router.get('/create', (req, res) => {
 
 // create restaurant
 router.post('/', (req, res) => {
-  const { name, image, location, phone } = req.body
+  const inputData = req.body
+  inputData["userId"] = req.user._id
 
-  if (!name || !image || !location || !phone) {
-    return res.render('create')
-  } else {
-    return Restaurant.create(req.body)
-      .then(() => res.redirect('/'))
-      .catch(error => console.log(error))
-  }
+  return Restaurant.create(inputData)
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
 })
 
 // show selected restaurant info
 router.get('/:id', (req, res) => {
-  const id = req.params.id
+  const _id = req.params.id
+  const userId = req.user._id
 
-  Restaurant.findById(id)
+  Restaurant.findOne({ _id, userId })
     .lean()
     .then(restaurant => res.render('show', { restaurant }))
     .catch(error => console.error(error))
@@ -33,9 +31,10 @@ router.get('/:id', (req, res) => {
 
 // show edit page
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
+  const _id = req.params.id
+  const userId = req.user._id
 
-  return Restaurant.findById(id)
+  return Restaurant.findOne({ _id, userId })
     .lean()
     .then(restaurant => res.render('edit', { restaurant }))
     .catch(error => console.log(error))
@@ -43,27 +42,27 @@ router.get('/:id/edit', (req, res) => {
 
 // update restaurant info
 router.put('/:id', (req, res) => {
-  const id = req.params.id
-  const { name, image, location, phone } = req.body
+  const _id = req.params.id
+  const userId = req.user._id
 
-  if (!name || !image || !location || !phone) {
-    return res.render('edit', { restaurant: req.body })
-  } else {
-    return Restaurant.findById(id)
-      .then(restaurant => {
-        restaurant = Object.assign(restaurant, req.body)
-        return restaurant.save()
-      })
-      .then(() => res.redirect(`/`))
-      .catch(error => console.log(error))
-  }
+  const inputData = req.body
+  inputData["userId"] = userId
+
+  return Restaurant.findOne({ _id, userId })
+    .then(restaurant => {
+      restaurant = Object.assign(restaurant, inputData)
+      return restaurant.save()
+    })
+    .then(() => res.redirect(`/`))
+    .catch(error => console.log(error))
 })
 
 // delete selected restaurant
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
+  const _id = req.params.id
+  const userId = req.user._id
 
-  return Restaurant.findById(id)
+  return Restaurant.findOne({ _id, userId })
     .then(restaurant => restaurant.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))

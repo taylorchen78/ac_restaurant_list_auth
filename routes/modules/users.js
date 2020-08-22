@@ -13,6 +13,10 @@ router.post('/login', passport.authenticate('local', {
   failureRedirect: '/users/login'
 }))
 
+router.get('/register', (req, res) => {
+  res.render('register')
+})
+
 router.post('/register', (req, res) => {
   const { name, email, password, confirmPassword } = req.body
 
