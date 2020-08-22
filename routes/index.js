@@ -5,7 +5,7 @@ const home = require('./modules/home')
 const search = require('./modules/search')
 const sort = require('./modules/sort')
 const restaurants = require('./modules/restaurants')
-const users = require('./users')
+const users = require('./modules/users')
 
 router.use('/search', search)
 router.use('/sort', sort)
