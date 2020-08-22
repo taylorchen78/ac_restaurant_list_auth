@@ -19,7 +19,11 @@
           width="30" height="30" class="d-inline-block align-top" alt="Restaurant List">
         Restaurant List
       </a>
-      <a href="/restaurants/create" class="btn btn-outline-info">Create</a>
+      {{#if isAuthenticated}}
+      <a href="/users/logout" class="btn btn-outline-primary">Logout</a>
+      {{else}}
+      <a href="/users/login" class="btn btn-outline-primary">Login</a>
+      {{/if}}
     </div>
   </nav>
 
