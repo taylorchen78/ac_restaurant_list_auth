@@ -2,7 +2,7 @@
 
 A simple website using Node.js and Express.
 
-The website shows restaurant list and provides query/add/delete/edit/sort function.
+Restaurant list is a free website store customized restaurant list according to user.
 
 ## Feature
 
@@ -20,15 +20,38 @@ User can add new restaurant.
 
 User can sort restaurant.
 
+User can login with facebook account.
+
+![Screenshot](/public/img/screenshot_.JPG)
+
+## Test account
+| email             | password |
+| ----------------- | -------- |
+| user1@example.com | 12345678 |
+| user2@example.com | 12345678 |
+
+## Web package
+- Node.js v10.15.0
+- Express v4.17.1
+- Express-Handlebars v5.1.0
+- Express-session v1.17.1
+- Mongoose v5.9.25
+- Passport v0.4.1
+- Passport-facebook v3.0.0
+- Passport-local v1.0.0
+- bcryptjs v2.4.3
+- connect-flash v1.19.0
+- dotenv v8.2.0
+
 ## Installation
 1. Open terminal and download project
 ```
-git clone https://github.com/taylorchen78/ac_exercise_restaurant_list_CRUD_v2.git
+git clone https://github.com/taylorchen78/ac_restaurant_list_auth.git
 ```
 
 2. Enter project folder
 ```
-cd ac_exercise_restaurant_list_CRUD_v2
+cd ac_restaurant_list_auth
 ```
 
 3. Install npm
@@ -36,12 +59,15 @@ cd ac_exercise_restaurant_list_CRUD_v2
 npm install
 ```
 
-4. Run project
+4. Run seed generator
+```
+npm run seed
+```
+
+5. Run project
 ```
 nodemon app.js or npm run dev
 ```
 
-5. Open restaurant website
-```
-Enter URL `localhost:3000` in browser
-```
+## Open expense website
+Browse http://localhost:3000/users/login
