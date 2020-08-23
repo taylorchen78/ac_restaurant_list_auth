@@ -22,7 +22,7 @@ User can sort restaurant.
 
 User can login with facebook account.
 
-![Screenshot](/public/img/screenshot_.JPG)
+![Screenshot](/public/img/screenshot.JPG)
 
 ## Test account
 | email             | password |
