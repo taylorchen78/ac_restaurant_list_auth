@@ -1,6 +1,8 @@
 const express = require('express')
-const passport = require('passport')
 const router = express.Router()
+
+const passport = require('passport')
+const bcrypt = require('bcryptjs')
 
 const User = require('../../models/user')
 
@@ -10,8 +12,7 @@ router.get('/login', (req, res) => {
 
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/users/login',
-  failureFlash: "Invalid user or password!"
+  failureRedirect: '/users/login'
 }))
 
 router.get('/register', (req, res) => {
@@ -32,9 +33,14 @@ router.post('/register', (req, res) => {
       errors_msg.push('User already exists!')
       res.render('register', { errors_msg, name, email, password, confirmPassword })
     } else {
-      return User.create({
-        name, email, password, confirmPassword
-      })
+      return bcrypt
+        .genSalt(10)
+        .then(salt => bcrypt.hash(password, salt))
+        .then(hash => User.create({
+          name,
+          email,
+          password: hash
+        }))
         .then(() => res.redirect('/'))
         .catch(err => console.log(err))
     }
