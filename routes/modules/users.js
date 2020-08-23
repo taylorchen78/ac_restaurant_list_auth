@@ -10,7 +10,8 @@ router.get('/login', (req, res) => {
 
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/users/login'
+  failureRedirect: '/users/login',
+  failureFlash: "Invalid user or password!"
 }))
 
 router.get('/register', (req, res) => {
@@ -19,11 +20,17 @@ router.get('/register', (req, res) => {
 
 router.post('/register', (req, res) => {
   const { name, email, password, confirmPassword } = req.body
+  const errors_msg = []
+
+  if (password !== confirmPassword) {
+    errors_msg.push('Password inconsistent！')
+    return res.render('register', { errors_msg, name, email, password, confirmPassword })
+  }
 
   User.findOne({ email }).then(user => {
     if (user) {
-      console.log('User already exists.')
-      res.render('register', { name, email, password, confirmPassword })
+      errors_msg.push('User already exists!')
+      res.render('register', { errors_msg, name, email, password, confirmPassword })
     } else {
       return User.create({
         name, email, password, confirmPassword
@@ -36,6 +43,7 @@ router.post('/register', (req, res) => {
 
 router.get('/logout', (req, res) => {
   req.logout()
+  req.flash('success_msg', 'Logout success！')
   res.redirect('/users/login')
 })
 
