@@ -1,4 +1,7 @@
-// require packages used in the project
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const express = require('express')
 const session = require('express-session')
 const bodyParser = require('body-parser')
@@ -13,14 +16,14 @@ require('./config/mongoose')
 
 const app = express()
 
-const port = 3000
+const port = process.env.PORT
 
 // setting template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
 app.use(session({
-  secret: 'ThisIsRestaurantSecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
