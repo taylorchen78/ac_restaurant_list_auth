@@ -59,12 +59,17 @@ cd ac_restaurant_list_auth
 npm install
 ```
 
-4. Run seed generator
+4. Set environment parameter
+```
+Rename .env.example to .env
+```
+
+5. Run seed generator
 ```
 npm run seed
 ```
 
-5. Run project
+6. Run project
 ```
 nodemon app.js or npm run dev
 ```
